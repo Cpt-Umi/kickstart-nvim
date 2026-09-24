@@ -85,6 +85,12 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
 -- ============================================================
+-- DISABLE netrw
+-- ============================================================
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- ============================================================
 -- SECTION 1: OPTIONS
 -- Core Neovim settings, leaders, options
 -- ============================================================
@@ -386,7 +392,7 @@ do
   ---@diagnostic disable-next-line: missing-fields
   require('tokyonight').setup {
     styles = {
-      comments = { italic = false }, -- Disable italics in comments
+      comments = { italic = true }, -- Disable italics in comments
     },
   }
 
@@ -447,6 +453,24 @@ do
 
   -- ... and there is more!
   --  Check out: https://github.com/nvim-mini/mini.nvim
+
+  -- nvim-tree
+  vim.pack.add{ gh 'nvim-tree/nvim-tree.lua' }
+  local config = {
+     sort = {
+       sorter = "case_sensitive",
+     },
+     view = {
+       width = 30,
+     },
+     renderer = {
+       group_empty = true,
+     },
+     filters = {
+       dotfiles = true,
+     },
+   }
+  require("nvim-tree").setup(config)
 end
 
 -- ============================================================
@@ -701,7 +725,7 @@ do
     --    https://github.com/pmizio/typescript-tools.nvim
     --
     -- But for many setups, the LSP (`ts_ls`) will work just fine
-    -- ts_ls = {},
+    ts_ls = {},
 
     stylua = {}, -- Used to format Lua code
 
